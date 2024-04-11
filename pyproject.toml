@@ -1,0 +1,58 @@
+[build-system]
+requires = [
+    # "scikit-build-core>=0.2.1",
+    "setuptools>=42",
+    "cmake>=3.17",
+    "wheel",
+    "numpy>=1.10.0",
+    "pybind11>=2.0",
+    "scipy"
+]
+# build-backend = "scikit_build_core.build"
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "snnlib"
+version = "0.1.0"
+description = "A library for nearest neighbor search and graph constuction in sparse data."
+keywords = ["Data Mining", "nearest neightbor search", "nearest neighbor graph construction", "sparse data"]
+readme = "README.md"
+authors = [
+  { name = "David C. Anastasiu", email = "danastasiu@scu.edu" },
+]
+license = {file = "LICENSE"}
+requires-python = ">=3.7"
+dependencies = ["numpy>=1.10.0", 'scipy']
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[tool.setuptools]
+py-modules = []
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"]
+xfail_strict = true
+filterwarnings = ["error"]
+testpaths = ["tests"]
+
+[tool.scikit-build]
+wheel.expand-macos-universal-tags = true
+
+
+[tool.cibuildwheel]
+test-command = "pytest {project}/python_bindings/tests"
+test-extras = ["test"]
+test-skip = ["*universal2:arm64"]
+build-verbosity = 1

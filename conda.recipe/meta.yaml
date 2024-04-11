@@ -1,0 +1,41 @@
+package:
+  name: snnlib
+  version: 0.1.0
+
+source:
+  path: ..
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv
+
+requirements:
+  build:
+    - python
+    - {{ compiler('cxx') }}
+
+  host:
+    - python
+    - pip
+    - scikit-build-core
+    - pybind11 >=2.10.0
+    - numpy>=1.10.0
+    - scipy
+
+  run:
+    - python
+
+
+test:
+  imports:
+    - scikit_build_example
+  requires:
+    - pytest
+  source_files:
+    - python_bindings
+  commands:
+    - pytest python_bindings/tests
+
+about:
+  summary: A library for nearest neighbor search and graph constuction in sparse data.
+  license_file: LICENSE

@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+# Cmake 
+CMakeFiles
+snnlib.egg-info
